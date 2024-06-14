@@ -1,0 +1,19 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "GET",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "GET",
+  "start_url": "/healt/",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "./icons/balanca.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "description": "Calculadora do gasto energético diário total (calorias), IMC e FCM"
+}

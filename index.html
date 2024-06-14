@@ -8,6 +8,7 @@
     <title>APP - GET</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" sizes="512x512" href="./icons/balanca.png">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -58,6 +59,11 @@
     <h4 id="calorias">calorias</h4>
     <script src="app.js"></script>
 
+    <script>
+        if (typeof navigator.serviceWorker !== 'undefined') {
+            navigator.serviceWorker.register('sw.js')
+        }
+    </script>
 </body>
 
 </html>
