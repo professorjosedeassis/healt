@@ -16,6 +16,7 @@ const APP_STATIC_RESOURCES = [
   "/icons/obesidade1.png",
   "/icons/obesidade2.png",
   "/icons/obesidadeExtrema.png",
+  "/icons/reset.png",
   "/icons/sobrepeso.png"
 ];
 
