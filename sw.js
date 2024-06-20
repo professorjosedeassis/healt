@@ -1,47 +1,71 @@
-// This is the "Offline page" service worker
+// The version of the cache.
+const VERSION = "v1";
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+// The name of the cache
+const CACHE_NAME = `GET-${VERSION}`;
 
-const CACHE = "pwabuilder-page";
+// The static resources that the app needs to function.
+const APP_STATIC_RESOURCES = [
+  "/",
+  "/index.html",
+  "/app.js",
+  "/style.css",
+  "/icons/baixo.png",
+  "/icons/balanca.png",
+  "/icons/normal.png",
+  "/icons/obesidade1.png",
+  "/icons/obesidade2.png",
+  "/icons/obesidadeExtrema.png",
+  "/icons/sobrepeso.png"
+];
 
-// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
-const offlineFallbackPage = "https://professorjosedeassis.github.io/healt/";
-
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-
-self.addEventListener('install', async (event) => {
+// On install, cache the static resources
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE)
-      .then((cache) => cache.add(offlineFallbackPage))
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      cache.addAll(APP_STATIC_RESOURCES);
+    })(),
   );
 });
 
-if (workbox.navigationPreload.isSupported()) {
-  workbox.navigationPreload.enable();
-}
+// delete old caches on activate
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      const names = await caches.keys();
+      await Promise.all(
+        names.map((name) => {
+          if (name !== CACHE_NAME) {
+            return caches.delete(name);
+          }
+        }),
+      );
+      await clients.claim();
+    })(),
+  );
+});
 
-self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') {
-    event.respondWith((async () => {
-      try {
-        const preloadResp = await event.preloadResponse;
-
-        if (preloadResp) {
-          return preloadResp;
-        }
-
-        const networkResp = await fetch(event.request);
-        return networkResp;
-      } catch (error) {
-
-        const cache = await caches.open(CACHE);
-        const cachedResp = await cache.match(offlineFallbackPage);
-        return cachedResp;
-      }
-    })());
+// On fetch, intercept server requests
+// and respond with cached responses instead of going to network
+self.addEventListener("fetch", (event) => {
+  // As a single page app, direct app to always go to cached home page.
+  if (event.request.mode === "navigate") {
+    event.respondWith(caches.match("/"));
+    return;
   }
+
+  // For all other requests, go to the cache first, and then the network.
+  event.respondWith(
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cachedResponse = await cache.match(event.request.url);
+      if (cachedResponse) {
+        // Return the cached response if it's available.
+        return cachedResponse;
+      }
+      // If resource isn't in the cache, return a 404.
+      return new Response(null, { status: 404 });
+    })(),
+  );
 });
