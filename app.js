@@ -4,12 +4,12 @@
  * https://joseassis.com.br
  */
 
-let peso, altura, idade, imc, fcm, tmb
+let peso, altura, idade, imc, fcm, get, litros
 
 function calcular() {
     idade = frmIMC.txtIdade.value
     peso = frmIMC.txtPeso.value
-    altura = frmIMC.txtAltura.value
+    altura = (frmIMC.txtAltura.value)/100
     if (frmIMC.txtIdade.value === "") {
         alert("Preencha a idade")
         frmIMC.txtIdade.focus()
@@ -51,12 +51,14 @@ function calcular() {
         let select = document.getElementById("atividade")
         let opcaoValor = Number(select.options[select.selectedIndex].value)
         if (document.getElementById("m").checked === true) {
-            tmb = (66 + (13.7 * peso) + (5 * (altura * 100) - (6.8 * idade))) * opcaoValor
+            get = (66 + (13.7 * peso) + (5 * (altura * 100) - (6.8 * idade))) * opcaoValor
         }
         if (document.getElementById("f").checked === true) {
-            tmb = (655 + (9.6 * peso) + (1.8 * (altura * 100) - (4.7 * idade))) * opcaoValor
+            get = (655 + (9.6 * peso) + (1.8 * (altura * 100) - (4.7 * idade))) * opcaoValor
         }
-        document.getElementById("calorias").innerHTML = tmb.toFixed(2)
+        document.getElementById("calorias").innerHTML = `${Math.floor(get)} calorias/dia`
+        litros = (peso * 35) / 1000
+        document.getElementById("agua").innerHTML = `${litros.toFixed(1)} litros/dia`
     }
 }
 
@@ -66,4 +68,5 @@ function limpar() {
     document.getElementById("freq").innerHTML = "FCM"
     document.getElementById("grafico").src = "icons/reset.png"
     document.getElementById("calorias").innerHTML = "calorias"
+    document.getElementById("agua").innerHTML = "litros"
 }

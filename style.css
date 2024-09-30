@@ -11,7 +11,7 @@ body {
 
 /* Cabeçalho */
 header {
-    margin: 25px 0px 25px 0px;
+    margin: 20px 0px 25px 0px;
 }
 
 header h1 {
@@ -25,15 +25,7 @@ input[type=number] {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #cc470d;
-}
-
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfield;
+    font-size: 1.1em;
 }
 
 .Radio {
@@ -58,21 +50,18 @@ input[type=number] {
     border: 1px solid #cc470d;
 }
 
-input[type=button] {
+input[type=button], input[type=reset]  {
     padding: 10px 25px 10px 25px;
     margin-right: 15px;
     border-radius: 25px;
     border: none;
     background-color: #cc470d;
     color: #fff;
+    font-size: 1.15em;
 }
 
-input[type=reset] {
-    padding: 10px 25px 10px 25px;
-    border-radius: 25px;
-    border: none;
-    background-color: #cc470d;
-    color: #fff;
+#botoes {
+    margin-bottom: 30px;
 }
 
 /** Info IMC e FCM **/
@@ -80,7 +69,7 @@ input[type=reset] {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin: 25px 0px 25px 0px;
+    margin: 20px 0px 20px 0px;
 }
 
 .Peso {
@@ -95,10 +84,21 @@ input[type=reset] {
 }
 
 /** Calorias **/
+hr {
+    margin: 5px 0px;
+}
+
 #calorias {
-    font-size: 2em;
-    font-weight: 700;
+    font-size: 1.25em;
+    font-weight: 600;
     color: #cc470d;
+}
+
+/** Agua **/
+#agua {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #0d96cc;
 }
 
 
@@ -149,18 +149,5 @@ input[type=reset] {
 
     100% {
         transform: scale(1.15) rotate(-135deg);
-    }
-}
-
-/* rotacionar tela */
-@media screen and (min-width: 576px) and (max-width: 992px) and (orientation: landscape) {
-    html {
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        width: 100vh;
-        overflow-x: hidden;
-        position: absolute;
-        top: 100%;
-        left: 0;
     }
 }

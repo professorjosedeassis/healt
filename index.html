@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APP - GET</title>
+    <title>HealtCalc</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" sizes="512x512" href="./icons/balanca.png">
     <link rel="manifest" href="manifest.json">
@@ -13,13 +13,13 @@
 
 <body>
     <header>
-        <h1>APP - GET</h1>
-        <p>Calculadora do gasto energético total.</p>
+        <h1>HealtCalc</h1>
+        <p>Calculadora de métricas de saúde</p>
     </header>
     <form name="frmIMC">
         <input type="number" name="txtIdade" placeholder="Idade">
         <input type="number" name="txtPeso" placeholder="Peso (Kg)">
-        <input type="number" name="txtAltura" placeholder="Altura (m)">
+        <input type="number" name="txtAltura" placeholder="Altura (cm)">
         <div class="Radio">
             <p>Sexo:</p>
             <input type="radio" name="grupo" id="m"><span class="Sexo">Masculino</span>
@@ -31,13 +31,14 @@
             <option value="1.375">Exercício leve (1-2 dias/semana)</option>
             <option value="1.55">Exercício moderado (3-5 dias/semana)</option>
             <option value="1.725">Exercício pesado (6-7 dias/semana)</option>
-            <option value="1.9">Atleta (2x dia)</option>
+            <option value="1.9">Atleta (1 a 2 treinos/dia)</option>
         </select>
-        <br>
-        <input type="button" value="Calcular" onclick="calcular()">
-        <input type="reset" value="Limpar" onclick="limpar()">
+        <div id="botoes">
+            <input type="button" value="Calcular" onclick="calcular()">
+            <input type="reset" value="Limpar" onclick="limpar()">
+        </div>        
     </form>
-
+    <hr>
     <div class="Info">
         <div class="Peso">
             <img src="icons/reset.png" alt="marcador IMC" id="grafico">
@@ -51,12 +52,17 @@
                 <div class="Circulo Top"></div>
                 <div class="Circulo Left"></div>
             </div>
-            <h3 id="freq">FCM</h3>
+            <h3 id="freq">FCM</h3>            
         </div>
     </div>
     <hr>
-    <h3>Calorias necessárias por dia:</h3>
-    <h4 id="calorias">calorias</h4>
+    <h3>Manutenção do peso:</h3>
+    <h4 id="calorias">calorias/dia</h4>
+    <hr>
+    <h3>Consumo de água:</h3>
+    <h4 id="agua">litros/dia</h4>
+
+
     <script src="app.js"></script>
 
     <script>
